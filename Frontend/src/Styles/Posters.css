@@ -1,0 +1,25 @@
+/* Large Poster */
+
+.largeposter{
+    height: 117vh;
+    width: 100%;
+    display: flex;
+    cursor: pointer;
+}
+
+.largeposter-lft{
+    width: 50%;
+    background: url("../assets/Posters/poster-left.jpg");
+    background-size: cover;
+}
+
+.largeposter-rht{
+    width: 50%;
+    background: url("../assets/Posters/poster-right.avif");
+    background-size: cover;
+}
+
+.sliderimage {
+    object-fit: contain;
+    height: 100px;
+}

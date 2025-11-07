@@ -1,0 +1,11 @@
+.slick-track>div>div {
+    margin-right:10px;
+}
+
+.slick-list {
+    height: 565px;
+}
+
+.slick-list{
+    overflow-x: scroll;
+}
