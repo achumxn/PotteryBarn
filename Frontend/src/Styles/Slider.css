@@ -1,11 +1,95 @@
-.slick-track>div>div {
-    margin-right:10px;
+/* Main container */
+.instock-Section {
+  background: #f5f4f2;
+  position: relative;
+  padding-bottom: 2rem;
 }
 
+/* Poster */
+.instock-poster {
+  width: 100%;
+}
+.instock-poster img {
+  object-fit: contain;
+  height: 15vh;
+  width: 100%;
+}
+
+/* Slider container */
+.instock-container {
+  position: relative;
+  width: 92%;
+  margin: 0 auto;
+}
+
+/* Spacing between slides */
+.slick-track > div > div {
+  margin-right: 10px;
+}
+
+/* Background */
 .slick-list {
-    height: 565px;
+  height: 565px;
+  background: #f5f4f2;
 }
 
-.slick-list{
-    overflow-x: scroll;
+.sliderImage {
+  width: 100%;
+}
+
+/* ✅ Custom arrow divs */
+.custom-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 23px 7px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Arrow hover effect */
+.custom-arrow:hover {
+  background: black;
+  /* transform: translateY(-50%) scale(1.1); */
+}
+
+.custom-arrow:hover img {
+  filter: invert(1);
+  transform: scale(1.1);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Left and right arrow positioning */
+.left-arrow {
+  left: 0; /* Move slightly outside slider */
+}
+
+.right-arrow {
+  right:0; /* Move slightly outside slider */
+}
+
+/* Arrow image inside the div */
+.custom-arrow img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+/* Dots styling */
+.slick-dots li button:before {
+  color: #000;
+  font-size: 10px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #111;
+  opacity: 1;
 }

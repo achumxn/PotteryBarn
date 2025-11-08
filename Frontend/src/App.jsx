@@ -11,8 +11,9 @@ function App() {
   return (
     <>
       {/* <Navbar/> */}
-      {/* <BiggPoster/> */}
-      <InStock/>
+      <BiggPoster/>
+      {/* <InStock/> */}
+
     </>
   )
 }

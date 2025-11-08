@@ -1,36 +1,71 @@
-import React from "react";
+import React, { useRef } from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../Styles/Slider.css"
+import "../Styles/Slider.css";
 
 import furn from "../assets/InstockSlider/furniture.avif";
 import rugg from "../assets/InstockSlider/rugs.avif";
 import buffet from "../assets/InstockSlider/buffets.avif";
 import lighting from "../assets/InstockSlider/lighting.jpg";
-
+import poster from "../assets/InstockSlider/Instock.avif";
+import rtarw from "../assets/InstockSlider/rightarrow.svg";
+import ltarw from "../assets/InstockSlider/leftarrow.svg";
 
 const InStock = () => {
+  const sliderRef = useRef(null);
+
   const settings = {
-    dots: true,          // show navigation dots
-    infinite: true,      // infinite looping
-    speed: 500,          // transition speed
-    slidesToShow: 3.1,     // how many slides visible
-    slidesToScroll: 1,   // slides to move per click
-    autoplay: true,
-    autoplaySpeed: 2000,
-    arrows: true         // show left/right arrows
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3.1,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 2500,
+    arrows: false, // hide default arrows
   };
 
   return (
-    <div style={{ width: "92%", margin: "0 auto" }}>
-      <h2>🔥 React Image Slider</h2>
-      <Slider {...settings}>
-        <div><img src={furn} alt="1" style={{ width: "100%" }} className="sliderImage"/></div>
-        <div><img src={furn} alt="2" style={{ width: "100%" }} className="sliderImage"/></div>
-        <div><img src={lighting} alt="3" style={{ width: "100%" }} className="sliderImage"/></div>
-        <div><img src={rugg} alt="4" style={{ width: "100%" }} className="sliderImage"/></div>
-      </Slider>
+    <div className="instock-Section">
+      {/* Poster */}
+      <div className="instock-poster">
+        <img src={poster} alt="Poster" />
+      </div>
+
+      {/* Slider Container */}
+      <div className="instock-container">
+        {/* ✅ Custom Arrow Divs */}
+        <div
+          className="custom-arrow left-arrow"
+          onClick={() => sliderRef.current.slickPrev()}
+        >
+          <img src={ltarw} alt="Left Arrow" />
+        </div>
+
+        <div
+          className="custom-arrow right-arrow"
+          onClick={() => sliderRef.current.slickNext()}
+        >
+          <img src={rtarw} alt="Right Arrow" />
+        </div>
+
+        {/* Slider */}
+        <Slider ref={sliderRef} {...settings}>
+          <div>
+            <img src={furn} alt="Furniture" className="sliderImage" />
+          </div>
+          <div>
+            <img src={buffet} alt="Buffets" className="sliderImage" />
+          </div>
+          <div>
+            <img src={lighting} alt="Lighting" className="sliderImage" />
+          </div>
+          <div>
+            <img src={rugg} alt="Rugs" className="sliderImage" />
+          </div>
+        </Slider>
+      </div>
     </div>
   );
 };
