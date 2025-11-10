@@ -8,9 +8,11 @@ const Crafted = () => {
         <>
             <div className="largeposter">
                 <div className="largeposter-lft">
-                    <img src="" alt="" />
+                    <img src={crtlft} alt="" />
                 </div>
-                <div className="largeposter-rht"></div>
+                <div className="largeposter-rht">
+                    <img src={crtrgt} alt="" />
+                </div>
             </div>
         </>
     )

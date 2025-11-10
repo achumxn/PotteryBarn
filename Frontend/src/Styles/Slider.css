@@ -35,6 +35,7 @@
 
 .sliderImage {
   width: 100%;
+  cursor: pointer;
 }
 
 /* ✅ Custom arrow divs */
@@ -81,6 +82,7 @@
   height: 18px;
   object-fit: contain;
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 /* Dots styling */
@@ -92,4 +94,14 @@
 .slick-dots li.slick-active button:before {
   color: #111;
   opacity: 1;
+}
+
+h3.headings {
+    width:92%;
+    margin-inline:auto;
+    font-size:21px;
+    font-weight:600;
+    padding: 5px 0px 18px 8px;
+    text-transform: uppercase;
+    color: #010101;
 }

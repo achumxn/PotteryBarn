@@ -5,6 +5,7 @@
     width: 100%;
     display: flex;
     cursor: pointer;
+    padding-bottom: 40px;
 }
 
 .largeposter-lft{

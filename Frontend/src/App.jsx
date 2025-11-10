@@ -5,15 +5,22 @@ import './App.css'
 import Navbar from './Components/Navbar'
 import BiggPoster from './Components/BiggPoster'
 import InStock from './Components/InStock'
+import Crafted from './Components/Crafted'
+import Trending from './Components/Trending'
+import Appointment from './Components/Appointment'
+import Footer from './Components/Footer'
 
 function App() {
 
   return (
     <>
-      {/* <Navbar/> */}
+      <Navbar/>
       <BiggPoster/>
-      {/* <InStock/> */}
-
+      <InStock/>
+      <Crafted/>
+      <Trending/>
+      <Appointment/>
+      <Footer/>
     </>
   )
 }

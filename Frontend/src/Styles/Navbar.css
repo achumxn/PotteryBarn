@@ -166,6 +166,11 @@ img.smallicon {
     padding: 11px 2px 8px;
     font-weight:600;
     font-size:14px;
+    cursor: pointer;
+    border-bottom: 2px solid #ffffff00;
+    &:hover {
+        border-bottom: 2px solid currentColor;
+    }
 }
 
 /* Poster */
@@ -173,6 +178,7 @@ img.smallicon {
 .poster {
     display:flex;
     width:25%;
+    cursor: pointer;
 }
 
 .poster-inner {

@@ -30,7 +30,8 @@ const InStock = () => {
     <div className="instock-Section">
       {/* Poster */}
       <div className="instock-poster">
-        <img src={poster} alt="Poster" />
+        {/* <img src={poster} alt="Poster" /> */}
+        <h3 className="headings">IN STOCK: Arrives In Time for ThanksGiving</h3>
       </div>
 
       {/* Slider Container */}
