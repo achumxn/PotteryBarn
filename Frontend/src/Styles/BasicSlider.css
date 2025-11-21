@@ -1,0 +1,89 @@
+.slider-card {
+    height: auto;
+    width: 100%; /* let slick control width */
+}
+
+.slider-card img {
+    height: 210px;
+    object-fit: contain;
+    margin: 2px;
+    padding: 2px;
+}
+
+p.cat-heading {
+    font-size:32px;
+    color: #010101;
+    font-weight:400;
+    width:97%;
+    margin-inline: auto;
+    padding: 15px 0 15px;
+}
+
+/* ----------- Slick Fixes ----------- */
+
+/* Don't restrict slick's layout system */
+.slick-slider,
+.slick-list,
+.slick-track {
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ✅ keep width dynamic — remove width:auto !important */
+.slick-slide,
+.slick-slide > div {
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white;
+}
+
+/* ✅ Maintain clean alignment */
+.slick-track {
+    display: flex !important;
+    align-items: stretch !important;
+    gap: 10px; /* your spacing between slides */
+    background: white;
+}
+
+/* ✅ Allow fractional slide (like 5.5) to show */
+.slick-list {
+    overflow: hidden !important;
+}
+
+/* Optional: remove hidden blank space */
+.slick-slide {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Optional slide styling */
+.slide {
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px;
+}
+
+.slider-dec {
+    padding: 6px 0px 8px 8px;
+}
+
+.slider-container {
+    width: 98%;
+    margin-inline: auto;
+    height: min-content;
+    position: relative;
+}
+
+
+.slider-container .left-arrow{
+    left:.5%;
+    top:45%;
+}
+
+.slider-container .right-arrow{
+    top:45%;
+    right:0%;
+}
