@@ -47,7 +47,7 @@ const Footer = () => {
                         </div>
                         <p className="desc">Join our VIP list for inspiration, new arrivals & more.</p>
                         <div className="custom-inp">
-                            <input type="text" placeholder='Enter Your Email'/>
+                            <input type="text" placeholder='Enter Your Email' className='footer-search'/>
                             <button>SIGN UP</button>
                         </div>
                         <div className="chek">

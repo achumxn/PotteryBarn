@@ -4,6 +4,8 @@ import cors from "cors";
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import db from "./config/db.js";
+import productRoutes from "./routes/productRoutes.js";
+import path from "path";
 
 const app = express();
 
@@ -29,3 +31,6 @@ const port = 8000;
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
+
+// product routes
+app.use("/api/product", productRoutes);

@@ -4,8 +4,8 @@ import { addUser, delUser, getUsers, updateUser } from "../controllers/userContr
 const router = express.Router();
 
 router.get('/getUsers',getUsers);
-router.put('/updateUser',updateUser);
+router.put('/updateUser/:id',updateUser);
 router.delete('/delUser/:id',delUser);
-router.post('/addUser/',addUser);
+router.post('/addUser',addUser)
 
 export default router;

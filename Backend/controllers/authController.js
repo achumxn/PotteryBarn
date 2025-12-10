@@ -1,11 +1,11 @@
 import db from "../config/db.js";
 
 export const loginUser = ((req,res) => {
-    const {name,pass} = req.body;
-    const values = [name,pass];
+    const {email,password} = req.body;
+    const values = [email,password];
     console.log("credentials", values);
     
-    const sql = "SELECT * FROM users WHERE name = ? AND pass = ?";
+    const sql = "SELECT * FROM users WHERE email = ? AND password = ?";
 
     db.query(sql,values,(error,result) => {
         if (error) {

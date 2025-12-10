@@ -70,7 +70,7 @@ const Navbar = () => {
         <div className="navtop">
           <div className="custom-input">
             <div className="left-search">
-              <input type="text" placeholder="Search" />
+              <input type="text" placeholder="Search" className="nav-search" style={{padding:0}}/>
               <img src={search} alt="search" />
             </div>
           </div>
