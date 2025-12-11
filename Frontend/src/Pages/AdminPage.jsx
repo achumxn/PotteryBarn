@@ -137,7 +137,7 @@ const AdminPage = () => {
       description: p.description,
       image: null,
     });
-    setEditingProductId(p._id);
+    setEditingProductId(p.id);
   };
 
   const handleProductDelete = async (id) => {
@@ -218,13 +218,13 @@ const AdminPage = () => {
             <tbody>
               {products.map((p) => (
                 <tr key={p.id}>
-                  <td><img src={p.imageUrl} width="60" /></td>
+                  <td><img src={`${url}/uploads/${p.imageUrl}`}  width="60" /></td>
                   <td>{p.title}</td>
                   <td>₹{p.price}</td>
                   <td>{p.description}</td>
                   <td>
                     <button onClick={() => handleProductEdit(p)} className="edit-btn">Edit</button>
-                    <button onClick={() => handleProductDelete(p._id)} className="delete-btn">Delete</button>
+                    <button onClick={() => handleProductDelete(p.id)} className="delete-btn">Delete</button>
                   </td>
                 </tr>
               ))}

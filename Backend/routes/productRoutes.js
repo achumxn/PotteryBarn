@@ -1,6 +1,7 @@
 import express from "express";
 import multer from "multer";
 import { addProduct, getProducts, updateProduct, deleteProduct } from "../controllers/productController.js";
+import path from "path"
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ const storage = multer.diskStorage({
     cb(null, "uploads/"); // folder
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 

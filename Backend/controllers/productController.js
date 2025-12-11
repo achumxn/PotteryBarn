@@ -3,7 +3,7 @@ import db from "../config/db.js"; // mysql connection
 // ADD PRODUCT
 export const addProduct = (req, res) => {
   const { title, price, description } = req.body;
-  const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+  const imageUrl = req.file ? `${req.file.filename}` : null;
 
   const sql = "INSERT INTO products (title, price, description, imageUrl) VALUES (?, ?, ?, ?)";
 
@@ -27,7 +27,7 @@ export const getProducts = (req, res) => {
 export const updateProduct = (req, res) => {
   const id = req.params.id;
   const { title, price, description } = req.body;
-  const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+  const imageUrl = req.file ? `${req.file.filename}` : null;
 
   let sql, params;
 
