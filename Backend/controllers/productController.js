@@ -15,7 +15,7 @@ export const addProduct = (req, res) => {
 
 // GET ALL PRODUCTS
 export const getProducts = (req, res) => {
-  const sql = "SELECT * FROM products ORDER BY id DESC";
+  const sql = "SELECT * FROM products ORDER BY pid DESC";
 
   db.query(sql, (err, rows) => {
     if (err) return res.status(500).json({ error: "Failed to fetch products" });
@@ -25,7 +25,7 @@ export const getProducts = (req, res) => {
 
 // UPDATE PRODUCT
 export const updateProduct = (req, res) => {
-  const id = req.params.id;
+  const pid = req.params.id;
   const { title, price, description } = req.body;
   const imageUrl = req.file ? `${req.file.filename}` : null;
 
@@ -47,7 +47,7 @@ export const updateProduct = (req, res) => {
 
 // DELETE PRODUCT
 export const deleteProduct = (req, res) => {
-  const id = req.params.id;
+  const pid = req.params.id;
 
   const sql = "DELETE FROM products WHERE id=?";
 

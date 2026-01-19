@@ -19,13 +19,13 @@ export const getUsers = ((req,res) => {
 });
 
 export const updateUser = ((req, res) => {
-    const id = req.params.id;
+    const uid = req.params.id;
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
        return res.status(400).json({ message: "Name, email, and password are required" });
     } else {
         const sql = "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?";
-        db.query(sql, [name, email, password, id], (err, result) => {
+        db.query(sql, [name, email, password, uid], (err, result) => {
             if (err) {
                 console.error(err);
                 res.status(500).json({ message: "Database Error" });
@@ -42,7 +42,7 @@ export const updateUser = ((req, res) => {
 
 export const delUser = ((req, res) => {
     const userId = req.params.id;
-    const sql = "DELETE FROM users WHERE id = ?";
+    const sql = "DELETE FROM users WHERE uid = ?";
     db.query(sql, [userId], (err, result) => {
         if (err) {
             console.error(err);

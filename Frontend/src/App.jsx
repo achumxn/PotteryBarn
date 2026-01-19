@@ -15,6 +15,8 @@ import Home from './Pages/Home'
 import NewItems from './Components/NewItems'
 import AdminPage from './Pages/AdminPage'
 import Login from './Pages/Login';
+import FurniturePage from './Pages/FurniturePage';
+import CartPage from './Pages/CartPage';
 
 function App() {
 
@@ -25,6 +27,8 @@ function App() {
           <Route path='/' element={<Login/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path='/admin' element={<AdminPage/>}/> 
+          <Route path = '/furniture' element={<FurniturePage/>}/>
+          <Route path = '/cart' element={<CartPage/>}/>
         </Routes>
       </BrowserRouter>
     </>

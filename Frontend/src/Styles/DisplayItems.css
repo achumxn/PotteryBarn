@@ -1,0 +1,191 @@
+.map-grid {
+    width:100%;
+    padding:50px 64px 0px;
+    box-sizing:border-box;
+}
+
+.display-itm-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+}
+
+.item-card {
+    height:368px;
+    padding:0px 15px;
+    position:relative;
+}
+
+img.card-image {
+    width:100%;
+    object-fit:cover;
+    cursor: pointer;
+
+}
+
+p.ratee {
+    font-size:14px;
+    margin-bottom:8px;
+    cursor: pointer;
+
+}
+
+p.item-title {
+    font-size:14px;
+    padding-top:5px;
+    margin-bottom:6px;
+    cursor: pointer;
+
+}
+
+p.item-noti {
+    font-size:11px;
+    cursor: pointer;
+
+}
+
+img.heart {
+    position:absolute;
+    top:5%;
+    right:10%;
+    height:20px;
+    cursor: pointer;
+
+}
+
+/* MODAL OVERLAY */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* MODAL BOX */
+.modal-box {
+  background: white;
+  width: 70%;
+  max-width: 900px;
+  padding: 20px;
+  position: relative;
+}
+
+/* CLOSE */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* MODAL CONTENT */
+.modal-content {
+  display: flex;
+}
+
+.modal-image {
+  width: 45%;
+  object-fit: contain;
+}
+
+.modal-details {
+  width: 55%;
+}
+
+.modal-price {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* QUANTITY */
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.qty-control button {
+  width: 35px;
+  height: 35px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* ADD TO CART */
+.add-cart-btn {
+  padding: 12px 25px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+
+/* Modall custom */
+
+.modal-box {
+    display:flex;
+}
+
+.modal-content {
+    flex-direction:column;
+    margin-left:50px;
+    position:relative;
+}
+
+button.close-btn {
+    outline:none;
+    border:none;
+    background:transparent;
+}
+
+.modal-content>h2 {
+    font-weight:600;
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.modal-price {
+    font-weight:400;
+    font-size:20px;
+}
+
+.qty-box {
+    width:15%;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+    /* padding:0px 4px; */
+}
+
+.qty-box>button {
+    outline:none;
+    border: 1px solid black;
+    background:transparent;
+    font-size:20px;
+    align-items:center;
+    padding:0px 2px;
+}
+
+.qty-box>span {
+    font-size:20px;
+    background: white;
+    width: 100%;
+    text-align: center;
+}
+
+button.add-cart-btn {
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+
+p.modal-desc {
+    margin-bottom:20px;
+}

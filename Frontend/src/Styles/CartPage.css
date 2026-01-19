@@ -1,0 +1,264 @@
+/* PAGE WRAPPER */
+.cart-inner {
+  display: flex;
+  gap: 40px;
+  height: 100vh;
+  padding: 40px 64px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* LEFT SECTION */
+.cart-inner-left {
+  flex: 2;
+  overflow-y: auto;
+  padding-right: 20px;
+
+  /* Hide scrollbar */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE & Edge */
+}
+
+.cart-inner-left::-webkit-scrollbar {
+  display: none;               /* Chrome, Safari */
+}
+
+
+/* RIGHT SECTION (ORDER SUMMARY) */
+.cart-inner-right {
+  flex: 1;
+  /* border-left: 1px solid #e5e5e5; */
+  padding-left: 32px;
+}
+
+/* HEADINGS */
+.carthead {
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.delivery-method {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+/* CART ITEM */
+.cart-item {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-itemimg img {
+  width: 180px;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ITEM DESCRIPTION */
+.itemcart-desc {
+  flex: 1;
+}
+
+.ct {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+/* PRICE SECTION */
+.price-sec {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.tprice {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* QUANTITY */
+.itemno {
+  width: 48px;
+  height: 36px;
+  border: 1px solid #ccc;
+  text-align: center;
+  line-height: 36px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+}
+
+.removeitemss {
+  cursor: pointer;
+  color: #000;
+  text-decoration: underline;
+}
+
+/* CART BOTTOM INFO */
+.cart-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7f7f7;
+  padding: 20px;
+  margin-top: 24px;
+}
+
+.instockk {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.postal {
+  font-size: 14px;
+  color: #555;
+}
+
+.free {
+  font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .cart-inner {
+    flex-direction: column;
+    padding: 24px;
+  }
+
+  .cart-inner-right {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+/* Right Side */
+
+/* ORDER SUMMARY */
+.summary-title {
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+/* ROW */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+/* NOTES */
+.summary-note {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.divider {
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+/* REWARD BOX */
+.reward-box {
+  background: #f7f7f7;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.reward-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.reward-desc {
+  font-size: 13px;
+  margin: 6px 0;
+}
+
+.learn-more {
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* BUTTONS */
+.checkout-btn {
+  width: 100%;
+  background: #8b0000;
+  color: #fff;
+  border: none;
+  padding: 14px 0;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.applepay-btn {
+  width: 100%;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 14px 0;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.paypal-btn {
+  width: 100%;
+  background: #ffc439;
+  color: #000;
+  border: none;
+  padding: 14px 0;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* FINANCE + TERMS */
+.finance-text {
+  font-size: 13px;
+  margin: 16px 0;
+}
+
+.finance-text span {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.terms-text {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.terms-text span {
+  text-decoration: underline;
+  cursor: pointer;
+}

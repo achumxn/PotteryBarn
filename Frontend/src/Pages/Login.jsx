@@ -4,173 +4,138 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const [isSignup, setIsSignup] = useState(false);
-    const url = import.meta.env.VITE_API_URL;
-    const navigate = useNavigate();
-    const [errorMsg, setErrorMsg] = useState("");
+  const [isSignup, setIsSignup] = useState(false);
+  const url = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState("");
 
+  // LOGIN STATE
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
 
-    // LOGIN STATE
-    const [loginData, setLoginData] = useState({
-        email: "",
-        password: "",
-    });
+  // SIGNUP STATE
+  const [signupData, setSignupData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-    // SIGNUP STATE
-    const [signupData, setSignupData] = useState({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-    });
+  // ================= LOGIN =================
+  const handleLogin = async () => {
+    try {
+      const res = await axios.post(`${url}/auth/userLogin`, loginData);
 
-    const handleLogin = async () => {
-        try {
-            const res = await axios.post(`${url}/auth/userLogin`, loginData);
+      // store logged-in user (uid, name, email)
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
-            console.log("LOGIN SUCCESS:", res.data);
+      alert("Login successful");
+      navigate("/home");
+    } catch (err) {
+      setErrorMsg("Invalid email or password");
+    }
+  };
 
-            // 👉 Save to localStorage
-            localStorage.clear();
-            localStorage.setItem("user", JSON.stringify(res.data.user));
+  // ================= SIGNUP =================
+  const handleSignup = async () => {
+    if (signupData.password !== signupData.confirmPassword) {
+      setErrorMsg("Passwords do not match");
+      return;
+    }
 
-            alert("Login Successful");
-            navigate("/home");
+    try {
+      await axios.post(`${url}/user/addUser`, {
+        name: signupData.name,
+        email: signupData.email,
+        password: signupData.password,
+      });
 
-        } catch (err) {
-            console.error(err);
-            alert("Invalid Credentials");
-        }
-    };
+      alert("Account created. Please login.");
+      setIsSignup(false);
+      setSignupData({ name: "", email: "", password: "", confirmPassword: "" });
+      setErrorMsg("");
+    } catch (err) {
+      setErrorMsg("Email already exists");
+    }
+  };
 
-    const handleSignup = async () => {
-        // console.log("Signup Data:", signupData);
-        // you will add API call later
-        if (signupData.password === signupData.confirmPassword) {
-            try {
-                const res = axios.post(`${url}/user/addUser`, signupData);
-                console.log("SignUp Data :", signupData);
-                setSignupData({
-                    email: "",
-                    password: "",
-                    confirmPassword: ""
-                })
-            setIsSignup(false);
+  return (
+    <div className="auth-container">
+      <div className="auth-box">
+        <h2 className="auth-title">{isSignup ? "Sign Up" : "Login"}</h2>
 
-            } catch (error) {
-                console.log(error);
-                alert("Login Failed");
-            }
-        } else {
-            setErrorMsg("Passwords do not match");
-        }
-    };
+        {!isSignup && (
+          <div className="auth-view">
+            <label>Email</label>
+            <input
+              type="email"
+              value={loginData.email}
+              onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+            />
 
-    return (
-        <>
-            <div className="auth-container">
-                <div className="auth-box">
+            <label>Password</label>
+            <input
+              type="password"
+              value={loginData.password}
+              onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+            />
 
-                    <h2 className="auth-title">
-                        {isSignup ? "Sign Up" : "Login"}
-                    </h2>
+            {errorMsg && <p className="error-text">{errorMsg}</p>}
 
-                    {/* LOGIN VIEW */}
-                    {!isSignup && (
-                        <div className="auth-view">
+            <button className="auth-btn" onClick={handleLogin}>Login</button>
 
-                            <label>Email</label>
-                            <input
-                                type="email"
-                                placeholder="Enter email"
-                                value={loginData.email}
-                                onChange={(e) =>
-                                    setLoginData({ ...loginData, email: e.target.value })
-                                }
-                            />
+            <p className="switch-text">
+              Don’t have an account?
+              <span onClick={() => setIsSignup(true)}> Sign Up</span>
+            </p>
+          </div>
+        )}
 
-                            <label>Password</label>
-                            <input
-                                type="password"
-                                placeholder="Enter password"
-                                value={loginData.password}
-                                onChange={(e) =>
-                                    setLoginData({ ...loginData, password: e.target.value })
-                                }
-                            />
+        {isSignup && (
+          <div className="auth-view">
+            <label>Name</label>
+            <input
+              value={signupData.name}
+              onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
+            />
 
-                            <button className="auth-btn" onClick={handleLogin}>
-                                Login
-                            </button>
+            <label>Email</label>
+            <input
+              value={signupData.email}
+              onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
+            />
 
-                            <p className="switch-text">
-                                Don’t have an account?
-                                <span onClick={() => setIsSignup(true)}> Sign Up</span>
-                            </p>
+            <label>Password</label>
+            <input
+              type="password"
+              value={signupData.password}
+              onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
+            />
 
-                        </div>
-                    )}
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              value={signupData.confirmPassword}
+              onChange={(e) => setSignupData({ ...signupData, confirmPassword: e.target.value })}
+            />
 
-                    {/* SIGNUP VIEW */}
-                    {isSignup && (
-                        <div className="auth-view">
+            {errorMsg && <p className="error-text">{errorMsg}</p>}
 
-                            <label>Full Name</label>
-                            <input
-                                type="text"
-                                placeholder="Enter full name"
-                                value={signupData.name}
-                                onChange={(e) =>
-                                    setSignupData({ ...signupData, name: e.target.value })
-                                }
-                            />
+            <button className="auth-btn" onClick={handleSignup}>
+              Create Account
+            </button>
 
-                            <label>Email</label>
-                            <input
-                                type="email"
-                                placeholder="Enter email"
-                                value={signupData.email}
-                                onChange={(e) =>
-                                    setSignupData({ ...signupData, email: e.target.value })
-                                }
-                            />
-
-                            <label>Password</label>
-                            <input
-                                type="password"
-                                placeholder="Enter password"
-                                value={signupData.password}
-                                onChange={(e) =>
-                                    setSignupData({ ...signupData, password: e.target.value })
-                                }
-                            />
-
-                            <label>Confirm Password</label>
-                            <input
-                                type="password"
-                                placeholder="Confirm password"
-                                value={signupData.confirmPassword}
-                                onChange={(e) =>
-                                    setSignupData({ ...signupData, confirmPassword: e.target.value })
-                                }
-                            />
-                            {errorMsg && <p className="error-text">{errorMsg}</p>}
-                            <button className="auth-btn" onClick={handleSignup}>
-                                Create Account
-                            </button>
-
-                            <p className="switch-text">
-                                Already have an account?
-                                <span onClick={() => setIsSignup(false)}> Login</span>
-                            </p>
-
-                        </div>
-                    )}
-
-                </div>
-            </div>
-        </>
-    );
+            <p className="switch-text">
+              Already have an account?
+              <span onClick={() => setIsSignup(false)}> Login</span>
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Login;

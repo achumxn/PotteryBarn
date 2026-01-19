@@ -3,48 +3,43 @@ import axios from "axios";
 import "../Styles/adminpage.css";
 
 const AdminPage = () => {
-  const [activeTab, setActiveTab] = useState("users"); // NEW
-  const [users, setUsers] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("users");
 
-  const [error, setError] = useState("");
+  // USERS
+  const [users, setUsers] = useState([]);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [editingId, setEditingId] = useState(null);
+
+  // PRODUCTS
+  const [products, setProducts] = useState([]);
   const [productForm, setProductForm] = useState({
     title: "",
     price: "",
     description: "",
     image: null,
   });
-
-  const [editingId, setEditingId] = useState(null);
   const [editingProductId, setEditingProductId] = useState(null);
 
   const url = import.meta.env.VITE_API_URL;
 
-  // ====================================
-  // FETCH USERS
-  // ====================================
+  // ================= FETCH USERS =================
   const fetchUsers = async () => {
     try {
       const res = await axios.get(`${url}/user/getUsers`);
       setUsers(res.data.message ? [] : res.data);
-      setLoading(false);
     } catch (err) {
-      setError("Failed to fetch users");
+      alert("Failed to fetch users");
     }
   };
 
-  // ====================================
-  // FETCH PRODUCTS
-  // ====================================
+  // ================= FETCH PRODUCTS =================
   const fetchProducts = async () => {
     try {
       const res = await axios.get(`${url}/product/getProducts`);
-      setProducts(res.data);      
+      setProducts(res.data);
     } catch (err) {
-      console.log(err);
-    };
+      alert("Failed to fetch products");
+    }
   };
 
   useEffect(() => {
@@ -52,18 +47,12 @@ const AdminPage = () => {
     fetchProducts();
   }, []);
 
-  //====================================
-  // USER FORM LOGIC
-  //====================================
-  const handleChange = (e) =>
+  // ================= USER FORM =================
+  const handleUserChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
+  const handleUserSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, password } = form;
-
-    if (!name || !email || !password) return alert("All fields required");
-
     try {
       if (editingId) {
         await axios.put(`${url}/user/updateUser/${editingId}`, form);
@@ -72,60 +61,61 @@ const AdminPage = () => {
         await axios.post(`${url}/user/addUser`, form);
         alert("User added");
       }
-
       setForm({ name: "", email: "", password: "" });
       setEditingId(null);
       fetchUsers();
-    } catch {
+    } catch (err) {
       alert("Operation failed");
-    };
+    }
   };
 
-  const handleEdit = (u) => {
-    setForm({ name: u.name, email: u.email, password: u.password });
-    setEditingId(u.id);
+  const handleUserEdit = (user) => {
+    setForm({ name: user.name, email: user.email, password: user.password });
+    setEditingId(user.uid);
   };
 
-  const handleDelete = async (id) => {
+  const handleUserDelete = async (uid) => {
     if (!window.confirm("Delete user?")) return;
-    await axios.delete(`${url}/user/delUser/${id}`);
-    fetchUsers();
+    try {
+      await axios.delete(`${url}/user/delUser/${uid}`);
+      fetchUsers();
+    } catch {
+      alert("Failed to delete user");
+    }
   };
 
-  //====================================
-  // PRODUCT FORM LOGIC
-  //====================================
+  // ================= PRODUCT FORM =================
   const handleProductChange = (e) => {
     if (e.target.name === "image") {
       setProductForm({ ...productForm, image: e.target.files[0] });
     } else {
       setProductForm({ ...productForm, [e.target.name]: e.target.value });
-    };
+    }
   };
 
   const handleProductSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
     formData.append("title", productForm.title);
     formData.append("price", productForm.price);
     formData.append("description", productForm.description);
-    formData.append("image", productForm.image);
+    if (productForm.image) formData.append("image", productForm.image);
 
     try {
       if (editingProductId) {
-        await axios.put(`${url}/product/update/${editingProductId}`, formData);
+        await axios.put(
+          `${url}/product/update/${editingProductId}`,
+          formData
+        );
         alert("Product updated");
       } else {
         await axios.post(`${url}/product/add`, formData);
         alert("Product added");
       }
-
       setEditingProductId(null);
       setProductForm({ title: "", price: "", description: "", image: null });
       fetchProducts();
     } catch (err) {
-      console.log(err);
       alert("Failed to save product");
     }
   };
@@ -137,101 +127,180 @@ const AdminPage = () => {
       description: p.description,
       image: null,
     });
-    setEditingProductId(p.id);
+    setEditingProductId(p.pid);
   };
 
-  const handleProductDelete = async (id) => {
+  const handleProductDelete = async (pid) => {
     if (!window.confirm("Delete product?")) return;
-    await axios.delete(`${url}/product/delete/${id}`);
-    fetchProducts();
+    try {
+      await axios.delete(`${url}/product/delete/${pid}`);
+      fetchProducts();
+    } catch {
+      alert("Failed to delete product");
+    }
   };
 
-  //====================================
+  // ================= UI =================
   return (
-    <div className="admin-container">
-
-      <h1>Admin Dashboard</h1>
-
-      {/* TAB BUTTONS */}
-      <div className="tabs">
+    <div className="admin-layout">
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <h2>Admin</h2>
         <button
-          className={activeTab === "users" ? "active" : ""}
           onClick={() => setActiveTab("users")}
+          className={activeTab === "users" ? "active" : ""}
         >
-          Manage Users
+          Users
         </button>
         <button
-          className={activeTab === "products" ? "active" : ""}
           onClick={() => setActiveTab("products")}
+          className={activeTab === "products" ? "active" : ""}
         >
-          Manage Products
+          Products
         </button>
-      </div>
+      </aside>
 
-      {/* USERS SECTION */}
-      {activeTab === "users" && (
-        <>
-          <h2>User Management</h2>
+      {/* Main */}
+      <main className="main">
+        <div className="topbar">
+          <h1>{activeTab === "users" ? "User Management" : "Product Management"}</h1>
+          <span>Admin Panel</span>
+        </div>
 
-          <form onSubmit={handleSubmit} className="user-form">
-            <input name="name" value={form.name} onChange={handleChange} placeholder="Name" />
-            <input name="email" value={form.email} onChange={handleChange} placeholder="Email" />
-            <input name="password" value={form.password} onChange={handleChange} placeholder="Password" />
-            <button type="submit">{editingId ? "Update" : "Add User"}</button>
-          </form>
+        {/* USERS */}
+        {activeTab === "users" && (
+          <>
+            <div className="card">
+              <h3>{editingId ? "Update User" : "Add User"}</h3>
+              <form onSubmit={handleUserSubmit} className="grid-form">
+                <input
+                  name="name"
+                  placeholder="Name"
+                  value={form.name}
+                  onChange={handleUserChange}
+                  required
+                />
+                <input
+                  name="email"
+                  placeholder="Email"
+                  value={form.email}
+                  onChange={handleUserChange}
+                  required
+                />
+                <input
+                  name="password"
+                  placeholder="Password"
+                  value={form.password}
+                  onChange={handleUserChange}
+                  required
+                />
+                <button>{editingId ? "Update" : "Save"}</button>
+              </form>
+            </div>
 
-          <table className="users-table">
-            <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Password</th><th>Actions</th></tr></thead>
-            <tbody>
-              {users.map((u) => (
-                <tr key={u.id}>
-                  <td>{u.id}</td>
-                  <td>{u.name}</td>
-                  <td>{u.email}</td>
-                  <td>{u.password}</td>
-                  <td>
-                    <button onClick={() => handleEdit(u)} className="edit-btn">Edit</button>
-                    <button onClick={() => handleDelete(u.id)} className="delete-btn">Delete</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
-      )}
+            <div className="card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((u) => (
+                    <tr key={u.uid}>
+                      <td>{u.uid}</td>
+                      <td>{u.name}</td>
+                      <td>{u.email}</td>
+                      <td>
+                        <button
+                          className="edit"
+                          onClick={() => handleUserEdit(u)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="del"
+                          onClick={() => handleUserDelete(u.uid)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
 
-      {/* PRODUCTS SECTION */}
-      {activeTab === "products" && (
-        <>
-          <h2>Product Management</h2>
+        {/* PRODUCTS */}
+        {activeTab === "products" && (
+          <>
+            <div className="card">
+              <h3>{editingProductId ? "Update Product" : "Add Product"}</h3>
+              <form
+                onSubmit={handleProductSubmit}
+                className="grid-form"
+                encType="multipart/form-data"
+              >
+                <input
+                  name="title"
+                  placeholder="Title"
+                  value={productForm.title}
+                  onChange={handleProductChange}
+                  required
+                />
+                <input
+                  name="price"
+                  placeholder="Price"
+                  value={productForm.price}
+                  onChange={handleProductChange}
+                  required
+                />
+                <input
+                  name="description"
+                  placeholder="Description"
+                  value={productForm.description}
+                  onChange={handleProductChange}
+                  required
+                />
+                <input
+                  type="file"
+                  name="image"
+                  onChange={handleProductChange}
+                  accept="image/*"
+                  required={!editingProductId}
+                />
+                <button>{editingProductId ? "Update" : "Save"}</button>
+              </form>
+            </div>
 
-          <form onSubmit={handleProductSubmit} className="user-form" encType="multipart/form-data">
-            <input type="text" name="title" placeholder="Product Title" value={productForm.title} onChange={handleProductChange} />
-            <input type="number" name="price" placeholder="Price" value={productForm.price} onChange={handleProductChange} />
-            <input type="text" name="description" placeholder="Description" value={productForm.description} onChange={handleProductChange} />
-            <input type="file" name="image" accept="image/*" onChange={handleProductChange} />
-            <button type="submit">{editingProductId ? "Update Product" : "Add Product"}</button>
-          </form>
-
-          <table className="users-table">
-            <thead><tr><th>Image</th><th>Title</th><th>Price</th><th>Description</th><th>Actions</th></tr></thead>
-            <tbody>
+            <div className="card grid-products">
               {products.map((p) => (
-                <tr key={p.id}>
-                  <td><img src={`${url}/uploads/${p.imageUrl}`}  width="60" /></td>
-                  <td>{p.title}</td>
-                  <td>₹{p.price}</td>
-                  <td>{p.description}</td>
-                  <td>
-                    <button onClick={() => handleProductEdit(p)} className="edit-btn">Edit</button>
-                    <button onClick={() => handleProductDelete(p.id)} className="delete-btn">Delete</button>
-                  </td>
-                </tr>
+                <div className="product-card" key={p.pid}>
+                  <img src={`${url}/uploads/${p.imageUrl}`} alt={p.title} />
+                  <h4>{p.title}</h4>
+                  <p>₹{p.price}</p>
+                  <div>
+                    <button className="edit" onClick={() => handleProductEdit(p)}>
+                      Edit
+                    </button>
+                    <button
+                      className="del"
+                      onClick={() => handleProductDelete(p.pid)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
-        </>
-      )}
+            </div>
+          </>
+        )}
+      </main>
     </div>
   );
 };

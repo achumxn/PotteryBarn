@@ -9,12 +9,14 @@ import truck from "../assets/navbar/truck.svg";
 import fav from "../assets/navbar/favorites.png";
 import cart from "../assets/navbar/cart.png";
 import recents from "../assets/navbar/recents.png";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [activeMenu, setActiveMenu] = useState(null);
 
   const handleMouseEnter = (menu) => setActiveMenu(menu);
   const handleMouseLeave = () => setActiveMenu(null);
+  const navigate = useNavigate();
 
   const hoverData = {
     new: (
@@ -110,7 +112,7 @@ const Navbar = () => {
         {/* Hover Categories */}
         <div className="hover-cat">
           <ul>
-            {["new", "furniture", "outdoor", "bedding"].map((key) => (
+            {["new", "Bath", "outdoor", "bedding"].map((key) => (
               <li
                 key={key}
                 onMouseEnter={() => handleMouseEnter(key)}
@@ -120,7 +122,7 @@ const Navbar = () => {
               </li>
             ))}
 
-            <li>Bath</li>
+            <li onClick={() => navigate("/furniture")}>Furniture</li>
             <li>Lighting</li>
             <li>Rugs</li>
             <li>Windows</li>

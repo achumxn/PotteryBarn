@@ -6,7 +6,6 @@
 }
 
 .navbar {
-  position: sticky;
   top: 0;
   background: #fff;
   z-index: 1000;
@@ -164,7 +163,7 @@ img.smallicon {
   gap: 2.7%;
 }
 
-.hover-cat ul li {
+.hover-cat ul li , .heh {
   position: relative;
   padding: 11px 2px 8px;
   font-weight: 600;
@@ -172,6 +171,7 @@ img.smallicon {
   cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: 0.3s ease;
+  text-decoration: none;
 }
 
 .hover-cat ul li.active {
